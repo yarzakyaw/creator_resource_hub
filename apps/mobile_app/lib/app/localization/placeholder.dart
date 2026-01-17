@@ -1,0 +1,1 @@
+// Localization setup and configuration

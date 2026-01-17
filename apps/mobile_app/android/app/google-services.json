@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "816087388737",
+    "project_id": "creator-resource-hub",
+    "storage_bucket": "creator-resource-hub.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816087388737:android:1ca2e3d59390e0c1536cc0",
+        "android_client_info": {
+          "package_name": "com.heintun.creatorresourcehub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdWBRlk5Bka8VjbDkX3JR9W8qrIWGHUfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

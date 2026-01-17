@@ -1,0 +1,16 @@
+name: core
+version: 1.0.0+1
+
+description: A package to include shared logic and utilities.
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.1.0
+  riverpod_annotation: ^4.0.0
+dev_dependencies:
+  riverpod_generator: ^4.0.0+1
+  build_runner: ^2.10.5
