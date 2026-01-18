@@ -368,6 +368,12 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "models",
+      "rootUri": "../../models",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
       "name": "node_preamble",
       "rootUri": "file:///Users/heintun/.pub-cache/hosted/pub.dev/node_preamble-2.0.2",
       "packageUri": "lib/",

@@ -1,5 +1,8 @@
 name: firebase_services
 description: A new Flutter package to provide Firebase services.
+
+publish_to: 'none' # Remove this line if you want to publish to pub.dev
+
 version: 0.0.1+1
 
 environment:
@@ -8,6 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  models:
+    path: ../../packages/models
   
   firebase_core: ^4.3.0
   firebase_auth: ^6.1.3

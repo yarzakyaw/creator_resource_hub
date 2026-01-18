@@ -1,0 +1,11 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Only admins can upload files
+    match /resources/{allPaths=**} {
+      allow write: if request.auth.token.email in ['admin@example.com'];
+      allow read: if request.auth != null; // Only authenticated users can download files
+    }
+  }
+}

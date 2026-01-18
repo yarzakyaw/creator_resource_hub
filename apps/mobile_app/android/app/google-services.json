@@ -12,7 +12,12 @@
           "package_name": "com.heintun.creatorresourcehub"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "816087388737-4msa9fu9i6u8guv8ciu40gna9j1ulukj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAdWBRlk5Bka8VjbDkX3JR9W8qrIWGHUfE"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816087388737-4msa9fu9i6u8guv8ciu40gna9j1ulukj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "816087388737-tadf41a5nb8od21gd87v5dipl0lshiop.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.heintun.creatorresourcehub"
+              }
+            }
+          ]
         }
       }
     }

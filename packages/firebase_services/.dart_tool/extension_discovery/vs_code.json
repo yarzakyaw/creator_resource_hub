@@ -1,1 +1,1 @@
-{"version":2,"entries":[{"package":"firebase_services","rootUri":"../","packageUri":"lib/"}]}
+{"version":2,"entries":[{"package":"models","rootUri":"../../models/","packageUri":"lib/"},{"package":"firebase_services","rootUri":"../","packageUri":"lib/"}]}

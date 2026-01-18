@@ -13,6 +13,7 @@
         "firebase_storage",
         "flutter",
         "flutter_riverpod",
+        "models",
         "riverpod_annotation"
       ],
       "devDependencies": [
@@ -139,6 +140,16 @@
         "firebase_core_web",
         "flutter",
         "meta"
+      ]
+    },
+    {
+      "name": "models",
+      "version": "0.0.1+1",
+      "dependencies": [
+        "cloud_firestore",
+        "flutter",
+        "flutter_riverpod",
+        "riverpod_annotation"
       ]
     },
     {
