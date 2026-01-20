@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "816087388737-cpeolsn9jkhc40meaujtin67d7su6bqu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.heintun.creatorresourcehub",
+            "certificate_hash": "42563032e13607f29f47323dfc1b508917a7993e"
+          }
+        },
+        {
           "client_id": "816087388737-4msa9fu9i6u8guv8ciu40gna9j1ulukj.apps.googleusercontent.com",
           "client_type": 3
         }

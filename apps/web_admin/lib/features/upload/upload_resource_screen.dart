@@ -224,6 +224,9 @@ class _UploadResourceScreenState extends ConsumerState<UploadResourceScreen> {
         webBytes: _webFileBytes,
         localFile: _localFile,
         destinationPath: '$collection/$_fileName',
+        isAudio:
+            ref.read(resourceTypeFilterProvider) == ResourceType.soundEffect ||
+            ref.read(resourceTypeFilterProvider) == ResourceType.voiceClip,
       );
 
       final fileSize = kIsWeb

@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 🔽 REQUIRED FOR AUDIO STREAMING 🔽 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 🔽 RECOMMENDED FOR STABILITY 🔽 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:label="CRHub"
         android:name="${applicationName}"

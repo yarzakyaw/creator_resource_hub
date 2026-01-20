@@ -1,3 +1,4 @@
+import 'package:creator_resource_hub_mobile/features/auth/auth_gate.dart';
 import 'package:firebase_services/auth/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,14 +36,34 @@ class LoginScreen extends ConsumerWidget {
               onPressed: () async {
                 final email = ref.read(emailProvider);
                 final password = ref.read(passwordProvider);
-                await authRepository.signInWithEmail(email, password);
+                try {
+                  await authRepository.signInWithEmail(email, password);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthGate()),
+                  );
+                } catch (e) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text('Login failed: $e')));
+                }
               },
               child: const Text('Login with Email'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                await authRepository.signInWithGoogle();
+                try {
+                  await authRepository.signInWithGoogle();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthGate()),
+                  );
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Google login failed: $e')),
+                  );
+                }
               },
               child: const Text('Login with Google'),
             ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_services/storage/firebase_storage_service.dart';
 import 'package:models/resource.dart';
 
 /// A service to handle Firestore operations for resources.
@@ -74,6 +75,30 @@ class FirestoreResourceService {
       await docRef.set(category.toFirestore());
     } catch (e) {
       throw Exception('Failed to add resource category: $e');
+    }
+  }
+
+  /// Updates an existing resource in Firestore.
+  Future<void> updateResource(Resource resource) async {
+    try {
+      final collection = '${resource.type.name.toLowerCase()}_resources';
+      final docRef = _firestore.collection(collection).doc(resource.id);
+      await docRef.update(resource.toFirestore());
+    } catch (e) {
+      throw Exception('Failed to update resource: $e');
+    }
+  }
+
+  /// Deletes a resource from Firestore and its associated file from Storage.
+  Future<void> deleteResource(Resource resource) async {
+    try {
+      final collection = '${resource.type.name.toLowerCase()}_resources';
+      final docRef = _firestore.collection(collection).doc(resource.id);
+      await docRef.delete();
+      final storageService = FirebaseStorageService();
+      await storageService.deleteFile(resource.downloadUrl);
+    } catch (e) {
+      throw Exception('Failed to delete resource: $e');
     }
   }
 }

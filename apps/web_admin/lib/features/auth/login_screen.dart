@@ -1,5 +1,5 @@
 import 'package:creator_resource_hub_admin/features/auth/admin_guard.dart';
-import 'package:creator_resource_hub_admin/features/dashboard/dashboard_screen.dart';
+import 'package:creator_resource_hub_admin/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:firebase_services/auth/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

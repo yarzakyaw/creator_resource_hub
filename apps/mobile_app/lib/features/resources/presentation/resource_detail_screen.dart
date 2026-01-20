@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:core/services/audio_service.dart';
+import 'package:creator_resource_hub_mobile/features/auth/login_screen.dart';
 import 'package:firebase_services/auth/auth_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:models/resource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,7 +42,7 @@ class ResourceDetailScreen extends ConsumerWidget {
             ElevatedButton(
               onPressed: () async {
                 final user = ref.read(currentUserProvider);
-                if (user == null) {
+                if (user == null || user.isAnonymous) {
                   _showLoginPrompt(context);
                   return;
                 }
@@ -74,7 +79,17 @@ class ResourceDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              ); // Navigate to LoginScreen
+            },
+            child: const Text('Login'),
           ),
         ],
       ),
@@ -119,7 +134,7 @@ class _ResourcePreview extends StatelessWidget {
     switch (resource.type) {
       case ResourceType.soundEffect:
       case ResourceType.voiceClip:
-        return _AudioPreview(url: resource.previewUrl);
+        return AudioPreview(url: resource.previewUrl);
       case ResourceType.image:
       case ResourceType.meme:
         return _ImagePreview(url: resource.previewUrl);
@@ -132,17 +147,49 @@ class _ResourcePreview extends StatelessWidget {
 }
 
 /// A widget to preview audio resources.
-class _AudioPreview extends StatefulWidget {
+class AudioPreview extends StatefulWidget {
   final String url;
 
-  const _AudioPreview({required this.url});
+  const AudioPreview({required this.url, super.key});
 
   @override
-  State<_AudioPreview> createState() => _AudioPreviewState();
+  State<AudioPreview> createState() => _AudioPreviewState();
 }
 
-class _AudioPreviewState extends State<_AudioPreview> {
+class _AudioPreviewState extends State<AudioPreview> {
+  final audio = AudioService.instance;
   bool isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    audio.init();
+
+    audio.player.playerStateStream.listen((state) {
+      if (!mounted) return;
+      setState(() {
+        isPlaying = state.playing;
+      });
+    });
+
+    audio.player.processingStateStream.listen((state) {
+      if (!mounted) return;
+      if (state == ProcessingState.completed) {
+        audio.stop();
+        audio.player.seek(Duration.zero);
+        setState(() => isPlaying = false);
+      }
+    });
+  }
+
+  Future<void> _toggle() async {
+    if (isPlaying) {
+      await audio.pause();
+    } else {
+      await audio.load(widget.url);
+      await audio.play();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,12 +198,7 @@ class _AudioPreviewState extends State<_AudioPreview> {
       children: [
         IconButton(
           icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-          onPressed: () {
-            setState(() {
-              isPlaying = !isPlaying;
-            });
-            // TODO: Implement audio play/pause logic.
-          },
+          onPressed: _toggle,
         ),
         Text(isPlaying ? 'Playing...' : 'Paused'),
       ],

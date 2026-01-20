@@ -21,4 +21,12 @@ class ResourceRepository {
     String categoryId,
     String collection,
   ) => _resourceService.fetchResourcesByCategory(categoryId, collection);
+
+  /// Delete a resource.
+  Future<void> deleteResource(Resource resource) =>
+      _resourceService.deleteResource(resource);
+
+  /// Update the resource.
+  Future<void> updateResource(Resource resource) =>
+      _resourceService.updateResource(resource);
 }

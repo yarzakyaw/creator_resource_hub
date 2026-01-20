@@ -27,15 +27,30 @@ class ResourceListScreen extends ConsumerWidget {
                           .where((r) => r.category.name == resourceCategory)
                           .toList()
                     : resources;
-                return ListView.builder(
-                  itemCount: filteredResources.length,
-                  itemBuilder: (context, index) {
-                    final resource = filteredResources[index];
-                    return ResourceCard(resource: resource);
+
+                if (filteredResources.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No resources available. Try changing the filters.',
+                    ),
+                  );
+                }
+
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    ref.refresh(filteredResourcesProvider);
                   },
+                  child: ListView.builder(
+                    itemCount: filteredResources.length,
+                    itemBuilder: (context, index) {
+                      final resource = filteredResources[index];
+                      return ResourceCard(resource: resource);
+                    },
+                  ),
                 );
               },
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () =>
+                  const Center(child: CircularProgressIndicator.adaptive()),
               error: (error, stack) {
                 debugPrint('Error loading resources: $error');
                 return Center(child: Text('Error: $error'));

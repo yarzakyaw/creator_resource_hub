@@ -27,16 +27,20 @@ class FirebaseStorageService {
     Uint8List? webBytes,
     File? localFile,
     required String destinationPath,
+    bool isAudio = false,
   }) async {
     final ref = _storage.ref(destinationPath);
+    final metadata = isAudio
+        ? SettableMetadata(contentType: 'audio/mpeg')
+        : null;
 
     try {
       UploadTask uploadTask;
 
       if (kIsWeb && webBytes != null) {
-        uploadTask = ref.putData(webBytes);
+        uploadTask = ref.putData(webBytes, metadata);
       } else if (localFile != null) {
-        uploadTask = ref.putFile(localFile);
+        uploadTask = ref.putFile(localFile, metadata);
       } else {
         throw Exception('No file provided');
       }
@@ -48,17 +52,13 @@ class FirebaseStorageService {
     }
   }
 
-  /* Future<String> uploadFile(File file, String destinationPath) async {
-    final ref = _storage.ref(destinationPath);
-
+  /// Deletes a file from Firebase Storage.
+  Future<void> deleteFile(String fileUrl) async {
     try {
-      final uploadTask = ref.putFile(file);
-      await uploadTask.whenComplete(() {});
-      // Get the download URL after the upload is complete
-      final downloadUrl = await ref.getDownloadURL();
-      return downloadUrl;
+      final ref = _storage.refFromURL(fileUrl);
+      await ref.delete();
     } catch (e) {
-      throw Exception('File upload failed: $e');
+      throw Exception('Failed to delete file: $e');
     }
-  } */
+  }
 }

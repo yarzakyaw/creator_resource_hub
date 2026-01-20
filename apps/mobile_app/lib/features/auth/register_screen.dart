@@ -1,3 +1,4 @@
+import 'package:creator_resource_hub_mobile/features/auth/auth_gate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_services/auth/auth_providers.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,10 @@ class RegisterScreen extends ConsumerWidget {
                     // Register a new account.
                     await authRepository.registerWithEmail(email, password);
                   }
-                  Navigator.pop(context); // Return to the previous screen.
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthGate()),
+                  );
                 } catch (e) {
                   ScaffoldMessenger.of(
                     context,
